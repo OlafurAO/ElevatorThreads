@@ -19,21 +19,29 @@ public class ElevatorScene {
 
 	private int numberOfFloors;
 	private int numberOfElevators;
+	
+	
+	
 
 	ArrayList<Integer> personCount; //use if you want but
 									//throw away and
 									//implement differently
 									//if it suits you
 	ArrayList<Integer> exitedCount = null;
-	public static Semaphore exitedCountMutex;
 	
+	public static Semaphore exitedCountMutex;
 	public static Semaphore sem;
+	public Thread elevator;
 
 	//Base function: definition must not change
 	//Necessary to add your code in this one
 	public void restartScene(int numberOfFloors, int numberOfElevators) {
+		Elevator elevatorClass = new Elevator(numberOfFloors);
+		this.elevator = new Thread(elevatorClass);
+				
 		sem = new Semaphore(0);
 		
+		/*
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -46,12 +54,15 @@ public class ElevatorScene {
 			}
 		}).start();
 		
+		*/
+		
 		//////////////////////////////////////
 
 		this.numberOfFloors = numberOfFloors;
 		this.numberOfElevators = numberOfElevators;
 
 		personCount = new ArrayList<Integer>();
+		
 		for(int i = 0; i < numberOfFloors; i++) {
 			this.personCount.add(0);
 		}
