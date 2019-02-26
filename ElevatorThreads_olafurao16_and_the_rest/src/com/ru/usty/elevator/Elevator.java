@@ -3,15 +3,19 @@ package com.ru.usty.elevator;
 import java.util.ArrayList;
 
 public class Elevator implements Runnable {
-	public int numberOfFloors;
 	public static final int CAPACITY = 6;
+	
+	public int numberOfFloors;
+	private int currentFloor;
 	private int peopleCount;
 	
 	ArrayList<Person> peopleList;	
 	
-	public Elevator() {
+	public Elevator(int numberOfFloors) {
 		peopleList = new ArrayList<Person>();
+		this.numberOfFloors = numberOfFloors;
 		this.peopleCount = 0;
+		this.currentFloor = 0;
 	}
 	
 	public void addPerson(Person person) {
