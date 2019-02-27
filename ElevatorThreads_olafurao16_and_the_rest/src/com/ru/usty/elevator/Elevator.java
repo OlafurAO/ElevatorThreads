@@ -9,13 +9,16 @@ public class Elevator implements Runnable {
 	private int currentFloor;
 	private int peopleCount;
 	
-	ArrayList<Person> peopleList;	
+	private ArrayList<Person> peopleList;	
+	private boolean goingUp; 
+	private int waitTime;
 	
 	public Elevator(int numberOfFloors) {
 		peopleList = new ArrayList<Person>();
 		this.numberOfFloors = numberOfFloors;
 		this.peopleCount = 0;
 		this.currentFloor = 0;
+		
 	}
 	
 	public void addPerson(Person person) {
@@ -29,6 +32,21 @@ public class Elevator implements Runnable {
 	
 	public boolean isAtCapacity() {
 		return peopleCount == CAPACITY;
+	}
+	
+	public void move() {
+		if (goingUp) {
+			currentFloor++;
+		}
+		else {
+			currentFloor--;
+		}
+	}
+	public boolean isFull() {
+		return peopleCount == CAPACITY; 
+	}
+	public boolean isOnTopFloor() {
+		return currentFloor == numberOfFloors; 
 	}
 	
 	@Override

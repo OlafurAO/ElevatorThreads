@@ -15,7 +15,16 @@ public class Person implements Runnable {
 	public int getDestination() {
 		return this.destination;
 	}
-
+	
+	public boolean isElevatorOnDestFloor() {
+		return; 
+	}
+	public void enter() {
+		return;
+	}
+	public void exit() {
+		return;
+	}
 	@Override
 	public void run() {
 		try {
