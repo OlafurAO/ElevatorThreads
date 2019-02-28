@@ -30,7 +30,7 @@ public class Person implements Runnable {
 	
 	@Override
 	public void run() {
-		//System.out.println("person");
+		//System.out.println("Person");
 		
 		try {
 			ElevatorScene.sem.acquire();

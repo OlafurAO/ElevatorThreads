@@ -12,7 +12,8 @@ public class Elevator implements Runnable {
 	private int peopleCount;
 	private int waitTime;
 	
-	private boolean goingUp; 
+	private boolean elevatorOpen;
+	private boolean goingUp; 	
 	
 	public Elevator(int numberOfFloors, int waitTime) {
 		this.peopleList = new ArrayList<Person>();
@@ -22,20 +23,17 @@ public class Elevator implements Runnable {
 		this.currentFloor = 0;
 		this.peopleCount = 0;
 		
+		this.elevatorOpen = true;
 		this.goingUp = true;
 	}
 	
 	public void addPerson(Person person) {
 		peopleList.add(person);
-		this.peopleCount++;
+		peopleCount++;
 	}
 	
 	public void removePerson() {
-		this.peopleCount--;
-	}
-	
-	public boolean isAtCapacity() {
-		return peopleCount == CAPACITY;
+		peopleCount--;
 	}
 	
 	public void move() {
@@ -47,12 +45,12 @@ public class Elevator implements Runnable {
 		}
 	}
 	
-	public boolean isFull() {
-		return peopleCount == CAPACITY; 
+	public void open() {
+		elevatorOpen = true;
 	}
 	
-	public boolean isOnTopFloor() {
-		return currentFloor == numberOfFloors; 
+	public void close() {
+		elevatorOpen = false;
 	}
 	
 	public void elevatorWait() {
@@ -64,10 +62,36 @@ public class Elevator implements Runnable {
 		}
 	}
 	
+	public int getCurrentFloor() {
+		return currentFloor;
+	}
+	
+	public int getPeopleCount() {
+		return peopleCount;	
+	}
+	
+	public boolean isOpen() {
+		return elevatorOpen;
+	}
+	
+	public boolean isFull() {
+		return peopleCount == CAPACITY; 
+	}
+	
+	public boolean isOnTopFloor() {
+		return currentFloor == numberOfFloors; 
+	}
+	
+	
 	@Override
 	public void run() {
 		while(true) {
 			//System.out.println("Elevator");
+			
+			class Prump{
+				
+			}
+			
 			System.out.println("opening\n");
 			
 			elevatorWait();
