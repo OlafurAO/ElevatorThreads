@@ -18,6 +18,7 @@ public class Person implements Runnable {
 
 	@Override
 	public void run() {
+		System.out.println("person");
 		try {
 			ElevatorScene.sem.acquire();
 		} catch(InterruptedException e) {
