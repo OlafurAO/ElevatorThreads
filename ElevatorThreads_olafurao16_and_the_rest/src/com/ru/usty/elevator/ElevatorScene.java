@@ -15,7 +15,7 @@ public class ElevatorScene {
 
 	//TO SPEED THINGS UP WHEN TESTING,
 	//feel free to change this.  It will be changed during grading
-	public static final int VISUALIZATION_WAIT_TIME = 500;  //milliseconds
+	public static final int VISUALIZATION_WAIT_TIME = 1000;  //milliseconds
 
 	private int numberOfFloors;
 	private int numberOfElevators;
@@ -30,7 +30,7 @@ public class ElevatorScene {
 	//Base function: definition must not change
 	//Necessary to add your code in this one
 	public void restartScene(int numberOfFloors, int numberOfElevators) {
-		Elevator elevatorClass = new Elevator(numberOfFloors);
+		Elevator elevatorClass = new Elevator(numberOfFloors, VISUALIZATION_WAIT_TIME);
 		this.elevator = new Thread(elevatorClass);
 				
 		sem = new Semaphore(0);

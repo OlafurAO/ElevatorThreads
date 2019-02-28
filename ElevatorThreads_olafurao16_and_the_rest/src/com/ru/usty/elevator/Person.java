@@ -17,24 +17,26 @@ public class Person implements Runnable {
 	}
 	
 	public boolean isElevatorOnDestFloor() {
-		return; 
+		return false; 
 	}
+	
 	public void enter() {
 		return;
 	}
+	
 	public void exit() {
 		return;
 	}
+	
 	@Override
 	public void run() {
-		System.out.println("person");
+		//System.out.println("person");
+		
 		try {
 			ElevatorScene.sem.acquire();
 		} catch(InterruptedException e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println("Person Thread");
 	}
 	
 }	
