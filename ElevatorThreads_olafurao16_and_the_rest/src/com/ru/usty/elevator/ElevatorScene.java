@@ -79,6 +79,11 @@ public class ElevatorScene {
 		
 		return personThread;  //this means that the testSuite will not wait for the threads to finish
 	}
+	
+	public void decrementPeopleWaiting(int floor) {
+		personCount.set(floor, personCount.get(floor) - 1);
+		System.out.println("decrementing batch");
+	}
 
 	//Base function: definition must not change, but add your code
 	public int getCurrentFloorForElevator(int elevator) {		
@@ -108,6 +113,8 @@ public class ElevatorScene {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		elevators.get(0).removePerson();
 	}
 	
 	

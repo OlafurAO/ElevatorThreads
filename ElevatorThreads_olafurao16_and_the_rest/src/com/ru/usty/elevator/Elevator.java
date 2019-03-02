@@ -28,12 +28,16 @@ public class Elevator implements Runnable {
 	}
 	
 	public void addPerson(Person person) {
-		peopleList.add(person);
-		peopleCount++;
+		if(peopleCount < CAPACITY) {
+			peopleList.add(person);
+			peopleCount++;
+		}
 	}
 	
 	public void removePerson() {
-		peopleCount--;
+		if(peopleCount > 0) {
+			peopleCount--;
+		}
 	}
 	
 	public void move() {
