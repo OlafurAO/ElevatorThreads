@@ -1,11 +1,31 @@
 package com.ru.usty.elevator;
 
 public class Person implements Runnable {
+	ElevatorScene elevatorScene;
+	
 	int source, destination;
 	
-	public Person(int source, int destination) {
+	public Person(ElevatorScene elevatorScene, int source, int destination) {
+		this.elevatorScene = elevatorScene;
 		this.destination = destination;
 		this.source = source;
+	}
+	
+	public void enter() {
+		return;
+	}
+	
+	public void exit() {
+		return;
+	}
+	
+	public void personWait() {
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public int getSource() {
@@ -20,22 +40,14 @@ public class Person implements Runnable {
 		return false; 
 	}
 	
-	public void enter() {
-		return;
-	}
-	
-	public void exit() {
-		return;
-	}
-	
 	@Override
 	public void run() {
-		//System.out.println("Person");
-		
-		try {
-			ElevatorScene.sem.acquire();
-		} catch(InterruptedException e) {
-			e.printStackTrace();
+		if(elevatorScene.elevators.get(0).isOpen()) {
+			if(elevatorScene.elevators.get(0).isFull()) {
+				personWait();
+			} else {
+				elevatorScene.elevators.get(0).addPerson(this);
+			}
 		}
 	}
 	

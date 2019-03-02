@@ -37,10 +37,9 @@ public class Elevator implements Runnable {
 	}
 	
 	public void move() {
-		if (goingUp) {
+		if(goingUp) {
 			currentFloor++;
-		}
-		else {
+		} else {
 			currentFloor--;
 		}
 	}
@@ -79,30 +78,36 @@ public class Elevator implements Runnable {
 	}
 	
 	public boolean isOnTopFloor() {
-		return currentFloor == numberOfFloors; 
+		return currentFloor == numberOfFloors - 1; 
+	}
+	
+	public boolean isOnBottomFloor() {
+		return currentFloor == 0;
 	}
 	
 	
 	@Override
 	public void run() {
-		while(true) {
-			//System.out.println("Elevator");
-			
-			class Prump{
-				
-			}
-			
+		while(true) {			
 			System.out.println("opening\n");
-			
+			open();
 			elevatorWait();
 			
 			System.out.println("closing\n");
-			
+			close();
 			elevatorWait();	
 			
 			System.out.println("moving\n");
-			
+			move();
 			elevatorWait();	
+			
+			if(isOnTopFloor()) {
+				goingUp = false;
+			}
+			
+			else if(isOnBottomFloor()) {
+				goingUp = true;
+			}
 		}
 	}
 }
