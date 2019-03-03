@@ -93,15 +93,15 @@ public class Elevator implements Runnable {
 	@Override
 	public void run() {
 		while(true) {			
-			System.out.println("opening\n");
+			//System.out.println("opening\n");
 			open();
 			elevatorWait();
 			
-			System.out.println("closing\n");
+			//System.out.println("closing\n");
 			close();
 			elevatorWait();	
 			
-			System.out.println("moving\n");
+			//System.out.println("moving\n");
 			move();
 			elevatorWait();	
 			

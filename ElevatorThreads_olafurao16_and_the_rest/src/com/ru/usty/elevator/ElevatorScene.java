@@ -82,7 +82,6 @@ public class ElevatorScene {
 	
 	public void decrementPeopleWaiting(int floor) {
 		personCount.set(floor, personCount.get(floor) - 1);
-		System.out.println("decrementing batch");
 	}
 
 	//Base function: definition must not change, but add your code

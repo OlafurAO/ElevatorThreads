@@ -5,12 +5,14 @@ public class Person implements Runnable {
 	int source, destination;
 	
 	boolean inElevator;
+	volatile boolean exitedElevator;
 	
 	public Person(ElevatorScene elevatorScene, int source, int destination) {
 		this.elevatorScene = elevatorScene;
 		this.destination = destination;
 		this.source = source;
 		this.inElevator = false;
+		this.exitedElevator = false;
 	}
 	
 	public void enter() {
@@ -52,7 +54,7 @@ public class Person implements Runnable {
 		
 		Elevator elevator = elevatorScene.elevators.get(0);
 		
-		while(true) {
+		while(exitedElevator == false) {
 			if(!isPersonInElevator()) {
 				if(elevator.getCurrentFloor() == source) {
 					if(!elevator.isFull()) {
@@ -71,11 +73,11 @@ public class Person implements Runnable {
 			else {
 				if(elevator.getCurrentFloor() == destination) {
 					elevatorScene.personExitsAtFloor(destination);
-					break;
+					exitedElevator = true;
 				}
 			}
 			
-			System.out.println(elevator.getPeopleCount());
+			
 		}
 	}
 }	
