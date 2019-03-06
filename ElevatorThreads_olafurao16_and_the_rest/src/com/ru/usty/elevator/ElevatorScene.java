@@ -1,6 +1,7 @@
 package com.ru.usty.elevator;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.Semaphore;
 
 public class ElevatorScene {
@@ -35,6 +36,8 @@ public class ElevatorScene {
 		personCount = new ArrayList<Integer>();
 		
 		exitedCountMutex = new Semaphore(1);
+		sem = new Semaphore(6);
+		
 		
 		numberOfPeopleWaiting = 0;
 	}
@@ -42,7 +45,9 @@ public class ElevatorScene {
 
 	//Base function: definition must not change
 	//Necessary to add your code in this one
-	public void restartScene(int numberOfFloors, int numberOfElevators) {		
+	public void restartScene(int numberOfFloors, int numberOfElevators) {
+		resetVariables();		
+		
 		this.numberOfElevators = numberOfElevators;
 		this.numberOfFloors = numberOfFloors;
 		
@@ -53,8 +58,6 @@ public class ElevatorScene {
 			elevators.add(elevator);
 			elevatorThread.start();
 		}
-				
-		//sem = new Semaphore(0);
 
 		/////////////////////////////////////////////////////////
 		for(int i = 0; i < numberOfFloors; i++) {
@@ -64,6 +67,22 @@ public class ElevatorScene {
 		for(int i = 0; i < getNumberOfFloors(); i++) {
 			this.exitedCount.add(0);
 		}
+	}
+	
+	private void resetVariables() {
+		for(Elevator e : elevators) {
+			e = null;
+		}
+		
+		elevatorThread = null;
+		
+		elevators = new ArrayList<Elevator>();
+		personCount = new ArrayList<Integer>();
+		
+		exitedCountMutex = new Semaphore(1);
+		sem = new Semaphore(6);
+		
+		numberOfPeopleWaiting = 0;
 	}
 
 	//Base function: definition must not change
@@ -78,6 +97,20 @@ public class ElevatorScene {
 		personCount.set(sourceFloor, personCount.get(sourceFloor) + 1);
 		
 		return personThread;  //this means that the testSuite will not wait for the threads to finish
+	}
+	
+	public void removePerson(Person person) {
+		Iterator<Person> iterator = elevators.get(0).peopleList.iterator();
+		
+		while(iterator.hasNext()) {
+			if(iterator.next() == person) {
+				try {
+					iterator.remove();
+				} catch(Exception e) {
+					
+				}
+			}
+		}
 	}
 	
 	public void decrementPeopleWaiting(int floor) {

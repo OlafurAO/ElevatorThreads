@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Elevator implements Runnable {
 	public static final int CAPACITY = 6;
 	
-	private ArrayList<Person> peopleList;	
+	public ArrayList<Person> peopleList;	
 	
 	public int numberOfFloors;
 	private int currentFloor;

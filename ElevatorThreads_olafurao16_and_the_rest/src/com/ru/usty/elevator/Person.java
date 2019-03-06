@@ -25,7 +25,7 @@ public class Person implements Runnable {
 	
 	public void personWait() {
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,14 +57,18 @@ public class Person implements Runnable {
 		while(exitedElevator == false) {
 			if(!isPersonInElevator()) {
 				if(elevator.getCurrentFloor() == source) {
-					if(!elevator.isFull()) {
-						elevator.addPerson(this);
-						inElevator = true;
+					if(!elevator.isFull()) {						
+						try {
+							elevatorScene.sem.acquire();
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						
 						elevatorScene.decrementPeopleWaiting(source);
-					}
-					
-					else {
+						elevator.addPerson(this);
+						inElevator = true;
+					} else {
 						personWait();
 					}
 				}
@@ -73,11 +77,14 @@ public class Person implements Runnable {
 			else {
 				if(elevator.getCurrentFloor() == destination) {
 					elevatorScene.personExitsAtFloor(destination);
+					elevatorScene.removePerson(this);
 					exitedElevator = true;
+					elevatorScene.sem.release();
+					return;		
+				} else {
+					personWait();
 				}
 			}
-			
-			
 		}
 	}
 }	
